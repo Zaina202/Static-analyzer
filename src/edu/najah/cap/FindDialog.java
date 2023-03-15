@@ -78,15 +78,15 @@ public class FindDialog extends JDialog implements ActionListener, KeyListener ,
 			if (matcher.find()) {
 				int selectionStart = matcher.start();
 				int selectionEnd = matcher.end();
-				root.TP.moveCaretPosition(matcher.start());
-				root.TP.select(selectionStart, selectionEnd);
+				root.textPanel.moveCaretPosition(matcher.start());
+				root.textPanel.select(selectionStart, selectionEnd);
 			} else {
 				finishedFinding = true;
 				JOptionPane.showMessageDialog(this, "You have reached the end of the file", "End of file",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 		} else {
-			matcher = Pattern.compile(pattern).matcher(root.TP.getText());
+			matcher = Pattern.compile(pattern).matcher(root.textPanel.getText());
 			finishedFinding = false;
 			find(pattern);
 		}
