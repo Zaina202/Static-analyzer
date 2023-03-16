@@ -1,17 +1,14 @@
 package edu.najah.cap;
 
 
-import edu.najah.cap.ex.EditorSaveException;
+import edu.najah.cap.ex.EditorException;
+import edu.najah.cap.ex.ExceptionType;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 
 import java.util.logging.Logger;
 
@@ -37,7 +34,7 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 	protected File file;
 	private static final String SAVE = "Save file";
 	private static final String CANNOT_WRITE="Cannot write file!";
-	
+	private static final String SAVE_CHANGE="The file has changed. You want to save it?";
 	private String[] actions = {"Open","Save","New","Edit","Quit", "Save as..."};
 	
 	protected JMenu jmfile;
@@ -139,7 +136,7 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 			int ans = 0;
 			if (changed) {
 				// 0 means yes and no option, 2 Used for warning messages.
-				ans = JOptionPane.showConfirmDialog(null, "The file has changed. You want to save it?", SAVE, 0, 2);
+				ans = JOptionPane.showConfirmDialog(null, SAVE_CHANGE, SAVE, 0, 2);
 			}
 			//1 value from class method if NO is chosen.
 			if (ans != 1) {
@@ -150,7 +147,7 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 					LOGGER.info(text);
 					try (PrintWriter writer = new PrintWriter(file);){
 						if (!file.canWrite())
-							throw new EditorSaveException(CANNOT_WRITE);
+							throw new EditorException(CANNOT_WRITE, ExceptionType.SAVE_EXCEPTION);
 						writer.write(text);
 						changed = false;
 					} catch (Exception ex) {
@@ -163,7 +160,7 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 			if (changed) {
 				//Save file 
 					// 0 means yes and no option, 2 Used for warning messages.
-					int ans = JOptionPane.showConfirmDialog(null, "The file has changed. You want to save it?", SAVE,
+					int ans = JOptionPane.showConfirmDialog(null, SAVE_CHANGE, SAVE,
 							0, 2);
 					//1 value from class method if NO is chosen.
 					if (ans == 1)
@@ -177,7 +174,7 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 				LOGGER.info(text);
 				try (PrintWriter writer = new PrintWriter(file);){
 					if (!file.canWrite())
-						throw new Exception(CANNOT_WRITE);
+						throw new EditorException(CANNOT_WRITE,ExceptionType.WRITE_EXCEPTION);
 					writer.write(text);
 					changed = false;
 				} catch (Exception ex) {
@@ -204,52 +201,18 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 		}
 	}
 
-
 	private void loadFile() {
-		JFileChooser dialog = new JFileChooser(System.getProperty("user.home"));
-		dialog.setMultiSelectionEnabled(false);
-		try {
-			int result = dialog.showOpenDialog(this);
-			if (result == 1) {// 1 value if cancel is chosen.
-				return;
-			}
-			if (result == 0) {// value if approve (yes, ok) is chosen.
-				if (changed){
-					//Save file
-						int ans = JOptionPane.showConfirmDialog(null, "The file has changed. You want to save it?", SAVE,
-								0, 2);//0 means yes and no question and 2 mean warning dialog
-						if (ans == 1)// no option
-							return;
-
-
-					if (file == null) {
-						saveAs(actions[1]);
-						return;
-					}
-					String text = textPanel.getText();
-					LOGGER.info(text);
-					try {
-						PrintWriter writer = new PrintWriter(file);
-						if (!file.canWrite())
-							throw new Exception(CANNOT_WRITE);
-						writer.write(text);
-						changed = false;
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}else{
-					LOGGER.info("No Change");
-					return;
-				}
-				file = dialog.getSelectedFile();
-				String rs = readFile(file);
-				textPanel.setText(rs);
+		JFileChooser dialog = new JFileChooser();
+		dialog.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int result = dialog.showOpenDialog(this);
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = dialog.getSelectedFile();
+			String content = readFile(selectedFile);
+			if (content != null) {
+				textPanel.setText(content);
+				file = selectedFile;
 				changed = false;
-				setTitle("Editor - " + file.getName());
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, e, "Error", 0);//0 means show Error Dialog
 		}
 	}
 
@@ -262,7 +225,7 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Cannot read file!", "Error!", 0);//0 means show Error Dialog
+			JOptionPane.showMessageDialog(null, CANNOT_WRITE, "Error!", 0);//0 means show Error Dialog
 		}
 		return rs.toString();
 	}
@@ -282,11 +245,13 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 		changed = false;
 		setTitle("Editor - " + file.getName());
 	}
-
+	public boolean isNameEmpty() {
+		return getName().length() == 0; // Noncompliant; the result of getName() could be null, but isn't null-checked
+	}
 	private static PrintWriter getWriter(File file) {
 		try {
 			return new PrintWriter(file);
-		} catch (Exception e){
+		} catch (NullPointerException | FileNotFoundException e){
 			return null;
 		}
 	}
