@@ -18,11 +18,11 @@ solve: 	public JMenuItem paste;
         public JMenuItem cut;
         public JMenuItem move;
 error: Make paste a static final constant or non-public and provide accessors if needed.
-solve: private static final JMenuItem PASTE= new JMenuItem("Paste");(rename the variable according code convintion and make it satic and final(cannot be changed).)
+solve: private static final JMenuItem PASTE= new JMenuItem("Paste");(rename the variable (magic number) and make it satic and final(cannot be changed).)
 error: Make cut a static final constant or non-public and provide accessors if needed.
-solve: private static final JMenuItem CUT= new JMenuItem("Cut");(rename the variable according code convintion and make it satic and final(cannot be changed).)
+solve: private static final JMenuItem CUT= new JMenuItem("Cut");(rename the variable (magic number) and make it satic and final(cannot be changed).)
 error: Make move a static final constant or non-public and provide accessors if needed
-solve: private static final JMenuItem MOVE= new JMenuItem("Move");(rename the variable according code convintion and make it satic and final(cannot be changed).)
+solve: private static final JMenuItem MOVE= new JMenuItem("Move");(rename the variable (magic number) and make it satic and final(cannot be changed).)
 error: Remove this unused MOVE private field.
 solve: remove move variable(Because not used)
 error: Make changed a static final constant or non-public and provide accessors if needed
