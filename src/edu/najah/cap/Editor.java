@@ -241,17 +241,21 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 			return;
 		file = dialog.getSelectedFile();
 		PrintWriter writer = getWriter(file);
+		if(writer != null){
 		writer.write(textPanel.getText());
 		changed = false;
-		setTitle("Editor - " + file.getName());
+		setTitle("Editor - " + file.getName());}
 	}
 	public boolean isNameEmpty() {
 		return getName().length() == 0; // Noncompliant; the result of getName() could be null, but isn't null-checked
 	}
 	private static PrintWriter getWriter(File file) {
+		if (file == null) {
+			throw new IllegalArgumentException("File cannot be null");
+		}
 		try {
 			return new PrintWriter(file);
-		} catch (NullPointerException | FileNotFoundException e){
+		} catch (FileNotFoundException e) {
 			return null;
 		}
 	}
