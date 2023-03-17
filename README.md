@@ -118,8 +118,15 @@ How this issue effect the code? Readability, Debugging, Testing, Maintainability
 Solution: This can be achieved by breaking up complex methods into smaller, more manageable methods that are easier to understand and test. It is also helpful to use descriptive names for methods and variables, and to limit the number of conditional statements and loops in the code. By keeping the cognitive complexity of methods low, you can improve the readability, maintainability, and testability of the code, and reduce the likelihood of issues arising in the future.
 
 problems in EditorException
+
 ![image](https://user-images.githubusercontent.com/100956629/226057230-2a0ff121-945c-496b-998b-c93ca1033d5a.png)
 
+* Type: inheritance tree of classes should not be too deep
+(major) 
+Repetition times: 1
+How this issue effect the code? Readability and maintainability, Complexity, Performance, Coupling
+Solution: This can be achieved by using composition instead of inheritance in some cases, and by favoring interfaces over abstract classes where appropriate. It is also helpful to use inheritance only when it makes sense from a design perspective and to avoid using inheritance simply to save typing or to achieve code reuse. By keeping the inheritance tree shallow, you can improve the readability, maintainability, and performance of the code, and reduce coupling between classes.
+********************
 
 False Negatives:
 1) While the code checks if a file can be written to before attempting to write to it, there may be other cases where a file cannot be read or written to due to file permissions or other issues, but the code does not handle these cases properly.
