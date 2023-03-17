@@ -74,11 +74,11 @@ How this issue effect the code? code can result in a runtime error, result in ha
 Solution: Check for null values.
 
 False Negatives:
-1)While the code checks if a file can be written to before attempting to write to it, there may be other cases where a file cannot be read or written to due to file permissions or other issues, but the code does not handle these cases properly.
+1) While the code checks if a file can be written to before attempting to write to it, there may be other cases where a file cannot be read or written to due to file permissions or other issues, but the code does not handle these cases properly.
 2) While the code attempts to validate user input when opening or saving files, there may be other cases where invalid input or unexpected user actions could cause the code to behave in unexpected ways or crash.
 3) The method saveAs() called within newFile() can potentially throw an exception, but it is not caught or thrown.
 * SonarQube doesn’t catch this issues because:
-it may not be aware of the inner workings of external libraries used in the code. As a result, it may flag issues that are not actually problematic.
-SonarQube may make assumptions about the code that are not true, leading it to miss certain issues.
+- it may not be aware of the inner workings of external libraries used in the code. As a result, it may flag issues that are not actually problematic.
+- SonarQube may make assumptions about the code that are not true, leading it to miss certain issues.
 
 
