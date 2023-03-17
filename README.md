@@ -91,6 +91,28 @@ Repetition times: 1
 How this issue effect the code? code can result in a runtime error, result in hard-to-debug errors, security vulnerabilities.
 Solution: Check for null values.
 
+11)Type: resources should be closed
+(blocker) 
+Repetition times: 1
+How this issue effect the code? Resource leaks, Inconsistent behavior, Data corruption, Security issues
+Solution: This can be done using a try-with-resources statement or by explicitly calling the close() method on the resource.
+
+12)Type: string literals should not be duplicated
+(critical) 
+Repetition times: 2
+How this issue effect the code? Maintenance, Consistency, Efficiency, Debugging
+Solution: it is generally better to define string literals as constants or variables and reuse them throughout the code.
+
+13) Type: cognitive complexity of methods should not be too high
+(critical) 
+Repetition times: 1
+How this issue effect the code? Readability, Debugging, Testing, Maintainability
+Solution: This can be achieved by breaking up complex methods into smaller, more manageable methods that are easier to understand and test. It is also helpful to use descriptive names for methods and variables, and to limit the number of conditional statements and loops in the code. By keeping the cognitive complexity of methods low, you can improve the readability, maintainability, and testability of the code, and reduce the likelihood of issues arising in the future.
+
+problems in EditorException
+![image](https://user-images.githubusercontent.com/100956629/226057230-2a0ff121-945c-496b-998b-c93ca1033d5a.png)
+
+
 False Negatives:
 1) While the code checks if a file can be written to before attempting to write to it, there may be other cases where a file cannot be read or written to due to file permissions or other issues, but the code does not handle these cases properly.
 2) While the code attempts to validate user input when opening or saving files, there may be other cases where invalid input or unexpected user actions could cause the code to behave in unexpected ways or crash.
