@@ -1,12 +1,12 @@
  * some problems in FindDialog class  
  ![image](https://user-images.githubusercontent.com/100956629/225065182-f24c0655-8f0c-4fe4-9f6d-2338b9e4303a.png)
  
-*Type: child class fields should not shadow parent class fields
+* Type: child class fields should not shadow parent class fields
 (Blocker) 
 Repetition times: 1
 How this issue effect the code? Confusion and errors , Unexpected behavior, Maintenance issues
 Solution: Change the name of the variable from (parent) to root
-*Type: Fields in a “serializable” class should either be transient or serializable
+* Type: Fields in a “serializable” class should either be transient or serializable
 (critical) 
 Repetition times: 1
 How this issue effect the code? If a field is not transient or serializable, it will not be included in the serialization process, which can result in data loss. When the object is deserialized, the missing field will either be assigned a default value or, if the field is an object, it will throw a NotSerializableException. This can cause unexpected behavior in the code and can lead to bugs and errors.
@@ -95,7 +95,7 @@ False Negatives:
 1) While the code checks if a file can be written to before attempting to write to it, there may be other cases where a file cannot be read or written to due to file permissions or other issues, but the code does not handle these cases properly.
 2) While the code attempts to validate user input when opening or saving files, there may be other cases where invalid input or unexpected user actions could cause the code to behave in unexpected ways or crash.
 3) The method saveAs() called within newFile() can potentially throw an exception, but it is not caught or thrown.
-* SonarQube doesn’t catch this issues because:
+>>SonarQube doesn’t catch this issues because:
 - it may not be aware of the inner workings of external libraries used in the code. As a result, it may flag issues that are not actually problematic.
 - SonarQube may make assumptions about the code that are not true, leading it to miss certain issues.
 
