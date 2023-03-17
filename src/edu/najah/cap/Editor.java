@@ -15,7 +15,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-@SuppressWarnings("serial")
+
 public class Editor extends JFrame implements ActionListener, DocumentListener {
 
 	private static final Logger LOGGER = Logger.getLogger(Editor.class.getName());
@@ -235,7 +235,8 @@ public class Editor extends JFrame implements ActionListener, DocumentListener {
 		if(writer != null){
 		writer.write(textPanel.getText());
 		changed = false;
-		setTitle("Editor - " + file.getName());}
+		setTitle("Editor - " + file.getName());
+		}
 	}
 
 	private static PrintWriter getWriter(File file) {
