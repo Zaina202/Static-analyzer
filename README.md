@@ -42,18 +42,17 @@ solve: according the convintion the name of function should be fisrt letter smal
 error: Remove this use of "CTRL_MASK", it is deprecated.
 solve: InputEvent.SHIFT_DOWN_MASK(CTRL_MASK in old version) 
 error: Remove this use of "SHIFT_MASK"; it is deprecated.
+solve: InputEvent.CTRL_DOWN_MASK(SHIFT_MASK in old version)
+error: "NullPointerException" could be thrown; "writer" is nullable here.
+solve: file parameter can be null and if writer equals null (getWriter method may throw a NullPointerException)add the condition indicating that the check writer does not equal null before calling the write method and add condition that check file parameter is not null 
 
 ![image](https://user-images.githubusercontent.com/100956629/225733383-6ac0dcd7-1f27-4a1c-8f61-992fa0cfd8a0.png)
-
 
 1)	(254, 27) Use try-with-resources or close this "PrintWriter" in a "finally" clause: we add finally block to close this file 
 2)	(158, 46) Define a constant instead of duplicating this literal "The file has changed. You want to save it?" 3 times: define a static final variable and use it instead of  this string 
 3)	(169, 37) Define a constant instead of duplicating this literal "Cannot write file!" 3 times:  define a static final variable and use it instead of  this string
 4)	(227, 14) Refactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed: reduce loadFile method complexity  by Use libraries and frameworks, Avoid nested loops and conditionals, Remove duplicate code, Splitting the code into smaller
 
-solve: InputEvent.CTRL_DOWN_MASK(SHIFT_MASK in old version)
-error: "NullPointerException" could be thrown; "writer" is nullable here.
-solve: file parameter can be null and if writer equals null (getWriter method may throw a NullPointerException)add the condition indicating that the check writer does not equal null before calling the write method and add condition that check file parameter is not null 
 
 
 
