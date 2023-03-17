@@ -1,14 +1,32 @@
  * some problems in FindDialog class  
  ![image](https://user-images.githubusercontent.com/100956629/225065182-f24c0655-8f0c-4fe4-9f6d-2338b9e4303a.png)
  
- These problems have been resolved:
-1)	Change the name of the variable from (parent) to root
-2)	To make the variable transient we add (transient) key world 
-3)	+  
-4)	 These functions are empty we add (sout) to print to tell the user It's empty, then sonarlint add another issue to replace (sout) to log
-5)	+
-6)	A comment we should remove it
-7)	We should define each variable in separate line
+*Type: child class fields should not shadow parent class fields
+(Blocker) 
+Repetition times: 1
+How this issue effect the code? Confusion and errors , Unexpected behavior, Maintenance issues
+Solution: Change the name of the variable from (parent) to root
+*Type: Fields in a “serializable” class should either be transient or serializable
+(critical) 
+Repetition times: 1
+How this issue effect the code? If a field is not transient or serializable, it will not be included in the serialization process, which can result in data loss. When the object is deserialized, the missing field will either be assigned a default value or, if the field is an object, it will throw a NotSerializableException. This can cause unexpected behavior in the code and can lead to bugs and errors.
+Solution: To make the variable transient we add (transient) key world
+* Type: Methods should not be empty
+(critical) 
+Repetition times: 2
+How this issue effect the code? Debugging issues, Maintenance issues, Unexpected behavior
+Solution: These functions are empty we add (sout) to print to tell the user It's empty, then sonarlint add another issue to replace (sout) to log 
+* Type: sections of code should not be commented out
+(major) 
+Repetition times: 2
+How this issue effect the code? Code bloat, Confusion, Version control issues, Debugging issues
+Solution: delete unused code instead of commenting it out.
+* Type: multiple variables should not be declared on the same line
+(minor) 
+Repetition times: 1
+How this issue effect the code? Maintenance, Debugging, Scoping
+Solution: it is generally better to declare each variable on a separate line. This will make the code easier to read and modify
+
 
 
 * some problem in Editor class
