@@ -29,17 +29,17 @@ Solution: it is generally better to declare each variable on a separate line. Th
 
 
 
-some problem in Editor class
+*some problem in Editor class
 
 ![335566706_1251393735463380_8130140185361086812_n](https://user-images.githubusercontent.com/114495555/225697082-da860694-0a7c-422a-a97c-c1487659e847.jpg)
 ![image](https://user-images.githubusercontent.com/100956629/225733383-6ac0dcd7-1f27-4a1c-8f61-992fa0cfd8a0.png)
 
-Type: inheritance tree of classes should not be too deep
+
+*Type: inheritance tree of classes should not be too deep
 (major) 
 Repetition times: 1
 How this issue effect the code? Readability and maintainability, Complexity, Performance, Coupling
 Solution: This can be achieved by using composition instead of inheritance in some cases, and by favoring interfaces over abstract classes where appropriate. It is also helpful to use inheritance only when it makes sense from a design perspective and to avoid using inheritance simply to save typing or to achieve code reuse. By keeping the inheritance tree shallow, you can improve the readability, maintainability, and performance of the code, and reduce coupling between classes
-
 
 
 1) Type: Standard outputs should not be used directly to log anything  (Major)
